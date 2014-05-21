@@ -44,7 +44,6 @@ public class WScratchView extends SurfaceView implements IWScratchView, SurfaceH
     private int mEndColor;
     private Paint mOverlayPaint;
     private Paint mCutawayPaint;
-    private Paint mClearPaint;
     private Rect mFrame;
     private int mRevealSize;
     private boolean mIsScratchable = true;
@@ -105,7 +104,7 @@ public class WScratchView extends SurfaceView implements IWScratchView, SurfaceH
 
 	@Override
 	public void onDraw(Canvas canvas) {
-		canvas.drawRect(mFrame, mClearPaint);
+		canvas.drawPath(path, mCutawayPaint);
 		canvas.drawRect(mFrame, mOverlayPaint);
 		
 		for(Path path: mPathList){	
@@ -164,13 +163,8 @@ public class WScratchView extends SurfaceView implements IWScratchView, SurfaceH
 	public void surfaceCreated(SurfaceHolder arg0) {
 		mOverlayPaint = new Paint();
 		mOverlayPaint.setAlpha(0xD0);
-		mOverlayPaint.setShader(new RadialGradient(getWidth(), 0.0f, getWidth()/2, mStartColor, mEndColor, TileMode.CLAMP));
+		mOverlayPaint.setShader(new RadialGradient(getWidth(), 0.0f, (float)Math.sqrt(Math.pow(getWidth(),2) + Math.pow(getHeight(),2)), mStartColor, mEndColor, TileMode.CLAMP));
 		mOverlayPaint.setStyle(Paint.Style.FILL);
-		mFrame = new Rect(0, 0, getWidth(), getHeight());
-		
-		mClearPaint = new Paint();
-		mClearPaint.setXfermode(new PorterDuffXfermode(Mode.CLEAR));
-		mClearPaint.setStyle(Paint.Style.FILL);
 		mFrame = new Rect(0, 0, getWidth(), getHeight());
 		
 		mCutawayPaint = new Paint();

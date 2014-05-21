@@ -163,8 +163,8 @@ public class WScratchView extends SurfaceView implements IWScratchView, SurfaceH
 	@Override
 	public void surfaceCreated(SurfaceHolder arg0) {
 		mOverlayPaint = new Paint();
-		mOverlayPaint.setAlpha(0xD0);
-		mOverlayPaint.setShader(new RadialGradient(getWidth(), 0.0f, getWidth()/2, mStartColor, mEndColor, TileMode.CLAMP));
+		mOverlayPaint.setAlpha(0x80);
+		mOverlayPaint.setShader(new RadialGradient(getWidth(), 0.0f, (float)Math.sqrt(Math.pow(getWidth(),2) + Math.pow(getHeight(),2)), mStartColor, mEndColor, TileMode.CLAMP));
 		mOverlayPaint.setStyle(Paint.Style.FILL);
 		mFrame = new Rect(0, 0, getWidth(), getHeight());
 		

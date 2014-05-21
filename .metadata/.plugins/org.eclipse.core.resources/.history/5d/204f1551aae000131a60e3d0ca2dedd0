@@ -44,7 +44,6 @@ public class WScratchView extends SurfaceView implements IWScratchView, SurfaceH
     private int mEndColor;
     private Paint mOverlayPaint;
     private Paint mCutawayPaint;
-    private Paint mClearPaint;
     private Rect mFrame;
     private int mRevealSize;
     private boolean mIsScratchable = true;
@@ -102,10 +101,30 @@ public class WScratchView extends SurfaceView implements IWScratchView, SurfaceH
 
     	
     }
+    
+    @Overide
+    private void onFinishInflate() {
+		mOverlayPaint = new Paint();
+		mOverlayPaint.setAlpha(0xD0);
+		mOverlayPaint.setShader(new RadialGradient(getWidth(), 0.0f, (float)Math.sqrt(Math.pow(getWidth(),2) + Math.pow(getHeight(),2)), mStartColor, mEndColor, TileMode.CLAMP));
+		mOverlayPaint.setStyle(Paint.Style.FILL);
+		mFrame = new Rect(0, 0, getWidth(), getHeight());
+		
+		mCutawayPaint = new Paint();
+		mCutawayPaint.setAlpha(0xFF);
+		mCutawayPaint.setShader(null);
+		mCutawayPaint.setXfermode(new PorterDuffXfermode(Mode.CLEAR));
+		mCutawayPaint.setStyle(Paint.Style.STROKE);
+		mCutawayPaint.setStrokeCap(Paint.Cap.ROUND);
+		mCutawayPaint.setStrokeJoin(Paint.Join.ROUND);
+		mCutawayPaint.setAntiAlias(mIsAntiAlias);
+		mCutawayPaint.setStrokeWidth(mRevealSize);
+	}
+    
+    
 
 	@Override
 	public void onDraw(Canvas canvas) {
-		canvas.drawRect(mFrame, mClearPaint);
 		canvas.drawRect(mFrame, mOverlayPaint);
 		
 		for(Path path: mPathList){	
@@ -162,27 +181,6 @@ public class WScratchView extends SurfaceView implements IWScratchView, SurfaceH
 
 	@Override
 	public void surfaceCreated(SurfaceHolder arg0) {
-		mOverlayPaint = new Paint();
-		mOverlayPaint.setAlpha(0xD0);
-		mOverlayPaint.setShader(new RadialGradient(getWidth(), 0.0f, getWidth()/2, mStartColor, mEndColor, TileMode.CLAMP));
-		mOverlayPaint.setStyle(Paint.Style.FILL);
-		mFrame = new Rect(0, 0, getWidth(), getHeight());
-		
-		mClearPaint = new Paint();
-		mClearPaint.setXfermode(new PorterDuffXfermode(Mode.CLEAR));
-		mClearPaint.setStyle(Paint.Style.FILL);
-		mFrame = new Rect(0, 0, getWidth(), getHeight());
-		
-		mCutawayPaint = new Paint();
-		mCutawayPaint.setAlpha(0xFF);
-		mCutawayPaint.setShader(null);
-		mCutawayPaint.setXfermode(new PorterDuffXfermode(Mode.CLEAR));
-		mCutawayPaint.setStyle(Paint.Style.STROKE);
-		mCutawayPaint.setStrokeCap(Paint.Cap.ROUND);
-		mCutawayPaint.setStrokeJoin(Paint.Join.ROUND);
-		mCutawayPaint.setAntiAlias(mIsAntiAlias);
-		mCutawayPaint.setStrokeWidth(mRevealSize);
-		
 		mThread = new WScratchViewThread(getHolder(), this); 
 		mThread.setRunning(true);
         mThread.start();
