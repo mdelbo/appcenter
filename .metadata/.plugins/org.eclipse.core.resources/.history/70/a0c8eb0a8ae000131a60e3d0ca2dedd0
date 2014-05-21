@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/frame"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    <com.google.android.maps.MapView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mapview"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clickable="true"
+    android:apiKey="AIzaSyC42kzofLH8dAaKm0AneEiuxw5MsCXC6-Y"
+/>
+	<com.example.waybackhome.WScratchView
+	    android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        wsv:antiAlias="true"
+    wsv:overlayColor="#0000ff"
+	    />
+</RelativeLayout>
