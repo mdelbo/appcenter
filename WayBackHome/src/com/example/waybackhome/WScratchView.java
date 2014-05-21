@@ -43,6 +43,8 @@ public class WScratchView extends SurfaceView implements IWScratchView, SurfaceH
     private int mStartColor;
     private int mEndColor;
     private Paint mOverlayPaint;
+    private Paint mCutawayPaint;
+    private Rect mFrame;
     private int mRevealSize;
     private boolean mIsScratchable = true;
     private boolean mIsAntiAlias = false;
@@ -97,30 +99,31 @@ public class WScratchView extends SurfaceView implements IWScratchView, SurfaceH
     	holder.addCallback(this);
     	holder.setFormat(PixelFormat.TRANSPARENT);
 
-		mOverlayPaint = new Paint();    		
+		mOverlayPaint = new Paint();
+		mOverlayPaint.setAlpha(0xD0);
+		mOverlayPaint.setShader(new RadialGradient(getWidth(), 0.0f, (float)Math.sqrt(Math.pow(getWidth(),2) + Math.pow(getHeight(),2)), mStartColor, mEndColor, TileMode.CLAMP));
+		mOverlayPaint.setStyle(Paint.Style.FILL);
+		mFrame = new Rect(0, 0, getWidth(), getHeight());
+		
+		mCutawayPaint = new Paint();
+		mCutawayPaint.setAlpha(0xFF);
+		mCutawayPaint.setShader(null);
+		mCutawayPaint.setXfermode(new PorterDuffXfermode(Mode.CLEAR));
+		mCutawayPaint.setStyle(Paint.Style.STROKE);
+		mCutawayPaint.setStrokeCap(Paint.Cap.ROUND);
+		mCutawayPaint.setStrokeJoin(Paint.Join.ROUND);
+		mCutawayPaint.setAntiAlias(mIsAntiAlias);
+		mCutawayPaint.setStrokeWidth(mRevealSize);
 	}
+    
     
 
 	@Override
 	public void onDraw(Canvas canvas) {
-		mOverlayPaint.setXfermode(new PorterDuffXfermode(Mode.SRC));
-		mOverlayPaint.setAlpha(0xD0);
-		mOverlayPaint.setShader(new RadialGradient(getWidth(), 0.0f, (float)Math.sqrt(Math.pow(getWidth(),2) + Math.pow(getHeight(),2)), mStartColor, mEndColor, TileMode.CLAMP));
-		mOverlayPaint.setStyle(Paint.Style.FILL);
-		Rect r = new Rect(0, 0, getWidth(), getHeight());
-		canvas.drawRect(r, mOverlayPaint);
+		canvas.drawRect(mFrame, mOverlayPaint);
 		
-		mOverlayPaint.setAlpha(0xFF);
-		mOverlayPaint.setShader(null);
-		mOverlayPaint.setXfermode(new PorterDuffXfermode(Mode.CLEAR));
-		mOverlayPaint.setStyle(Paint.Style.STROKE);
-		mOverlayPaint.setStrokeCap(Paint.Cap.ROUND);
-		mOverlayPaint.setStrokeJoin(Paint.Join.ROUND);
-		
-		for(Path path: mPathList){
-			mOverlayPaint.setAntiAlias(mIsAntiAlias);
-			mOverlayPaint.setStrokeWidth(mRevealSize);	
-			canvas.drawPath(path, mOverlayPaint);
+		for(Path path: mPathList){	
+			canvas.drawPath(path, mCutawayPaint);
 		}
 	}
 
