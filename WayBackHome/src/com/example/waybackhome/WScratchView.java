@@ -104,7 +104,7 @@ public class WScratchView extends SurfaceView implements IWScratchView, SurfaceH
 	@Override
 	public void onDraw(Canvas canvas) {
 		mOverlayPaint.setXfermode(new PorterDuffXfermode(Mode.SRC));
-		mOverlayPaint.setAlpha(0x80);
+		mOverlayPaint.setAlpha(0xD0);
 		mOverlayPaint.setShader(new RadialGradient(getWidth(), 0.0f, (float)Math.sqrt(Math.pow(getWidth(),2) + Math.pow(getHeight(),2)), mStartColor, mEndColor, TileMode.CLAMP));
 		mOverlayPaint.setStyle(Paint.Style.FILL);
 		Rect r = new Rect(0, 0, getWidth(), getHeight());

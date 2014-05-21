@@ -1,0 +1,28 @@
+package com.example.waybackhome;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapController;
+import com.google.android.maps.MapView;
+
+public class MapActivity extends FragmentActivity {
+	private MapView map;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_map);
+        MapView mapView = (MapView)findViewById(R.id.mapview);
+        MapController mapController = mapView.getController();
+        mapController.setZoom(17);
+        mapController.setCenter(new GeoPoint((int)(40.719482 * 1E6),(int)(-73.998568 * 1E6)));
+    }
+
+	@Override
+	protected boolean isRouteDisplayed() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+}
