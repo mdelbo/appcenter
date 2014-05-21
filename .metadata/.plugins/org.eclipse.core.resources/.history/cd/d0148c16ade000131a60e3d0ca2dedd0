@@ -73,7 +73,8 @@ public class WScratchView extends SurfaceView implements IWScratchView, SurfaceH
     	mOverlayColor = DEFAULT_COLOR;
     	mRevealSize = DEFAULT_REVEAL_SIZE;
     	
-    	this.setWarn(false);
+    	mStartColor = Color.rgb(127, 233, 190);
+    	mEndColor = Color.rgb(0, 210, 168);
     	    	
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.WScratchView, 0, 0);
 
@@ -109,10 +110,9 @@ public class WScratchView extends SurfaceView implements IWScratchView, SurfaceH
     		mStartColor = Color.rgb(127, 233, 190);
     		mEndColor = Color.rgb(0, 210, 168);
     	}
-    	else {
-    		mStartColor = Color.rgb(255, 112, 102);
-    		mEndColor = Color.rgb(255, 0, 77);
-    	}
+    	
+    	mStartColor = Color.rgb(255, 112, 102);
+    	mEndColor = Color.rgb(255, 0, 77);
     }
 
 	@Override

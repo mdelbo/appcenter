@@ -73,8 +73,9 @@ public class WScratchView extends SurfaceView implements IWScratchView, SurfaceH
     	mOverlayColor = DEFAULT_COLOR;
     	mRevealSize = DEFAULT_REVEAL_SIZE;
     	
-    	this.setWarn(false);
-    	    	
+    	mStartColor = Color.rgb(127, 233, 190);
+    	mEndColor = Color.rgb(0, 210, 168);
+    	
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.WScratchView, 0, 0);
 
         final int indexCount = ta.getIndexCount();
@@ -102,17 +103,6 @@ public class WScratchView extends SurfaceView implements IWScratchView, SurfaceH
     	holder.setFormat(PixelFormat.TRANSPARENT);
 
     	
-    }
-    
-    public void setWarn(boolean warn) {
-    	if (!warn) {
-    		mStartColor = Color.rgb(127, 233, 190);
-    		mEndColor = Color.rgb(0, 210, 168);
-    	}
-    	else {
-    		mStartColor = Color.rgb(255, 112, 102);
-    		mEndColor = Color.rgb(255, 0, 77);
-    	}
     }
 
 	@Override
@@ -176,7 +166,7 @@ public class WScratchView extends SurfaceView implements IWScratchView, SurfaceH
 	public void surfaceCreated(SurfaceHolder arg0) {
 		mOverlayPaint = new Paint();
 		mOverlayPaint.setAlpha(0xD0);
-		mOverlayPaint.setShader(new RadialGradient(getWidth(), 0.0f, getWidth()*2, mStartColor, mEndColor, TileMode.CLAMP));
+		mOverlayPaint.setShader(new RadialGradient(getWidth(), 0.0f, getWidth()/2, mStartColor, mEndColor, TileMode.CLAMP));
 		mOverlayPaint.setStyle(Paint.Style.FILL);
 		mFrame = new Rect(0, 0, getWidth(), getHeight());
 		
