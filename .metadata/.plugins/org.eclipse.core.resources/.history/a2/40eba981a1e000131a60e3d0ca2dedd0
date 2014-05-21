@@ -16,8 +16,8 @@ public class MapActivity extends com.google.android.maps.MapActivity {
         setContentView(R.layout.activity_map);
         MapView mapView = (MapView)findViewById(R.id.mapview);
         MapController mapController = mapView.getController();
-        mapController.setZoom(17);
-        mapController.setCenter(new GeoPoint((int)(40.719482 * 1E6),(int)(-73.998568 * 1E6)));
+        mapController.setZoom(15);
+        mapController.setCenter(new GeoPoint(40.719482 * 1E6,-73.998568 * 1E6));
     }
 
 	@Override

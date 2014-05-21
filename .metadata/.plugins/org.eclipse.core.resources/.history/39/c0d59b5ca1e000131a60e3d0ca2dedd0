@@ -3,7 +3,6 @@ package com.example.waybackhome;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 
@@ -16,8 +15,8 @@ public class MapActivity extends com.google.android.maps.MapActivity {
         setContentView(R.layout.activity_map);
         MapView mapView = (MapView)findViewById(R.id.mapview);
         MapController mapController = mapView.getController();
-        mapController.setZoom(17);
-        mapController.setCenter(new GeoPoint((int)(40.719482 * 1E6),(int)(-73.998568 * 1E6)));
+        mapController.setZoom(15);
+        mapController.setCenter(new GeoPoint(40.719482,-73.998568));
     }
 
 	@Override
